@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login do instrutor</title>
+</head>
+
+<body class="bg-sky-950 h-screen items-center flex justify-center">
+    <form class="flex gap-24" th:action="@{/instructor/login}" method="post" th:object="${instructor}">
+        <div class="text-white max-w-80 text-6xl flex items-center">
+            Instrutor, faça o seu login
+        </div>
+        <div class="space-y-8 bg-zinc-950 rounded-md p-20">
+            <input type="email" name="email"
+                class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+                placeholder="E-mail">
+            <input type="password" name="password"
+                class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+                placeholder="Senha">
+
+            <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
+            <button class="bg-green-900 w-96 p-4 rounded text-white hover:bg-green-700">Entrar</button>
+            <a href="/instructor/create"
+                class="block text-center text-green-700 underline underline-offset-2 hover:text-green-600">Crie sua
+                conta</a>
+        </div>
+    </form>
+</body>
+
+</html>

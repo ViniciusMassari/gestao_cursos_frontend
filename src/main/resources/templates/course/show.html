@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+</head>
+
+<body class="bg-gray-900 h-screen items-center flex justify-center">
+
+    <div th:if="${courses}" class="text-white mt-5 flex justify-center ">
+        <table class="border-collapse border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 p-2">Nome</th>
+                    <th class="border border-gray-300 p-2">Descrição</th>
+                    <th class="border border-gray-300 p-2">Categoria</th>
+                    <th class="border border-gray-300 p-2">Ativo</th>
+                    <th class="border border-gray-300 p-2">Instrutor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course: ${courses}" class="hover:odd:bg-slate-500 hover:even:bg-slate-500">
+                    <td class="border border-gray-300 p-2" th:text="${course.name}"></td>
+                    <td class="border border-gray-300 p-2" th:text="${course.description}"></td>
+                    <td class="border border-gray-300 p-2" th:text="${course.category}"></td>
+                    <td class="border border-gray-300 p-2" th:text="${course.Active}"></td>
+                    <td class="border border-gray-300 p-2" th:text="${course.instructorName}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="text-white" th:if="${error_message}" th:text="${error_message}"></p>
+</body>
+
+</html>

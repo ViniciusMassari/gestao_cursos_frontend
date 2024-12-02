@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Criação de curso</title>
+</head>
+
+<body class="bg-sky-900 h-screen ">
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-start text-white">
+                <div class="space-x-4">
+                    <a href="/instructor/profile" class="hover:underline ">Voltar</a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <div class="items-center flex justify-center">
+
+        <form id="submitForm" action="" class="flex gap-24 mt-10" th:action="@{/course/create}" method="post"
+            th:object="${course}">
+            <div class="space-y-8 bg-zinc-950 rounded-md p-10">
+                <p th:if="${created_message}" th:text="${created_message}" class="bg-green-100 p-2">
+                <p th:if="${error_message}" th:text="${error_message}" class="bg-red-100 p-2">
+                </p>
+                <h2 class="text-white">Crie um novo curso</h2>
+
+                <div class="flex flex-row gap-10">
+                    <input type="text" name="name"
+                        class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+                        placeholder="Digite o nome do curso">
+
+                </div>
+
+                <div class="flex flex-row gap-10">
+                    <input type="text" name="category"
+                        class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+                        placeholder="Digite a categoria do curso">
+
+                </div>
+                <textarea name="description" placeholder="Digite uma descrição para o curso"
+                    class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"></textarea>
+
+                <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
+                <p class="text-red-400 hidden" id="password_error">As senhas não conferem</p>
+                <button class="bg-green-700 w-full p-4 rounded text-white hover:bg-green-600">Crie</button>
+            </div>
+            <div class="text-white max-w-80 text-6xl flex items-center">
+                Gestão de Cursos
+            </div>
+        </form>
+    </div>
+</body>
+
+<script>
+    document.getElementById("submitForm").addEventListener("submit", (event) => {
+        var password = document.getElementById("password").value
+        var confirmPassword = document.getElementById("confirmPassword").value
+
+        if (password !== confirmPassword) {
+            document.getElementById("password_error").classList.remove("hidden")
+            event.preventDefault()
+        }
+    })
+</script>
+
+</html>
