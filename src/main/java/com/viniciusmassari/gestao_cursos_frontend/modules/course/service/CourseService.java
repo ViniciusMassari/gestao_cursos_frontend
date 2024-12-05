@@ -11,10 +11,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.viniciusmassari.gestao_cursos_frontend.modules.course.dto.CreateCourseDTO;
+import com.viniciusmassari.gestao_cursos_frontend.modules.course.dto.DeleteCourseDTO;
 import com.viniciusmassari.gestao_cursos_frontend.modules.course.dto.ShowAllCourseResponseDTO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CourseService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Value("${host.api.gestao.cursos}")
     private String hostAPIGestaoCursos;
 
@@ -30,6 +40,20 @@ public class CourseService {
         var url = hostAPIGestaoCursos.concat("/courses/");
 
         rt.postForObject(url, request, CreateCourseDTO.class);
+    }
+
+    public void delete_course(DeleteCourseDTO deleteCourseDTO) {
+        logger.info("METODO delete_course chamado");
+        RestTemplate rt = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(getToken());
+
+        HttpEntity<DeleteCourseDTO> request = new HttpEntity<>(null, headers);
+        var url = hostAPIGestaoCursos.concat("/courses/" + deleteCourseDTO.getCourseID());
+
+        rt.exchange(url, HttpMethod.DELETE, request, DeleteCourseDTO.class);
     }
 
     public ShowAllCourseResponseDTO showAllCourses() {

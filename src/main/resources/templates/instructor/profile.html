@@ -26,45 +26,48 @@
 
             <h1 class="text-2xl font-bold text-gray-100 text-center mb-5" th:text="${instructor.name}"></h1>
 
-            <form th:object="${instructor}">
-                <div class="text-center mb-4">
-                    <p class="text-gray-400">
-                        <span class="font-bold">E-mail: </span> <span th:text="${instructor.email}"></span>
-                    </p>
-                    <h2 class="text-gray-100 text-2xl">Cursos</h2>
 
-                    <div th:if="${instructor.courses}" class="text-white mt-5  flex  justify-center ">
-                        <table class="border-collapse border border-gray-300">
-                            <thead>
-                                <tr>
-                                    <th class="border border-gray-300 p-2">Nome</th>
-                                    <th class="border border-gray-300 p-2">Descrição</th>
-                                    <th class="border border-gray-300 p-2">Categoria</th>
-                                    <th class="border border-gray-300 p-2">Ativo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="course: ${instructor.courses}"
-                                    class="hover:odd:bg-slate-500 hover:even:bg-slate-500">
-                                    <td class="border border-gray-300 p-2" th:text="${course.name}"></td>
-                                    <td class="border border-gray-300 p-2" th:text="${course.description}"></td>
-                                    <td class="border border-gray-300 p-2" th:text="${course.category}"></td>
-                                    <td class="border border-gray-300 p-2" th:text="${course.Active}"></td>
-                                    <td class="border border-gray-300 p-2">
-                                        <form method="post" th:object="${course}" th:action="@{/course/delete}">
-                                            <button type="submit" class="text-red-500">Excluir</button>
-                                            <input type="hidden" id="curso_id" name="curso_id" th:value="${course.id}">
-                                        </form>
-                                    </td>
+            <div class="text-center mb-4">
+                <p class="text-gray-400">
+                    <span class="font-bold">E-mail: </span> <span th:text="${instructor.email}"></span>
+                </p>
+                <h2 class="text-gray-100 text-2xl">Cursos</h2>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div th:if="${instructor.courses}" class="text-white mt-5 flex justify-center ">
+                    <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
+                    <table class="border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-300 p-2">Nome</th>
+                                <th class="border border-gray-300 p-2">Descrição</th>
+                                <th class="border border-gray-300 p-2">Categoria</th>
+                                <th class="border border-gray-300 p-2">Ativo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="course: ${instructor.courses}"
+                                class="hover:odd:bg-slate-500 hover:even:bg-slate-500">
+                                <td class="border border-gray-300 p-2" th:text="${course.name}"></td>
+                                <td class="border border-gray-300 p-2" th:text="${course.description}"></td>
+                                <td class="border border-gray-300 p-2" th:text="${course.category}"></td>
+                                <td class="border border-gray-300 p-2" th:text="${course.Active}"></td>
+                                <td class="border border-gray-300 p-2">
+                                    <form method="post" id="excluir_curso_form" th:object="${deleteCourse}"
+                                        th:action="@{/course/delete}">
+                                        <input type="hidden" id="curso_id" name="courseID" th:value="${course.id}">
+                                        <button class="text-red-500">Excluir</button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
+            </div>
+
         </div>
     </div>
 </body>
+
 
 </html>

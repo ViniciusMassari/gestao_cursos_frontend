@@ -1,5 +1,7 @@
 package com.viniciusmassari.gestao_cursos_frontend.modules.instructor.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,15 +10,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.viniciusmassari.gestao_cursos_frontend.modules.instructor.dto.AuthInstructorDTO;
-import com.viniciusmassari.gestao_cursos_frontend.modules.instructor.dto.AuthInstructorResponseDTO;
-import com.viniciusmassari.gestao_cursos_frontend.modules.instructor.dto.CreateInstructorDTO;
+import com.viniciusmassari.gestao_cursos_frontend.modules.instructor.dto.*;
 import com.viniciusmassari.gestao_cursos_frontend.modules.instructor.service.InstructorService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/instructor")
 @Slf4j
 public class InstructorController {
+
+    Logger logger = LoggerFactory.getLogger(InstructorController.class);
 
     @Autowired
     private InstructorService instructorService;
