@@ -71,6 +71,16 @@ public class InstructorController {
         }
     }
 
+    @PostMapping("/logout")
+    public String instructor_logout(RedirectAttributes redirectAttributes, HttpSession session) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        session.setAttribute("token", null);
+
+        return "redirect:/instructor/login";
+    }
+
     @PostMapping("/login")
     public String instructor_login(RedirectAttributes redirectAttributes, HttpSession session,
             AuthInstructorDTO authInstructorDTO) {
